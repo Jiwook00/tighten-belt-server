@@ -3,7 +3,7 @@ const router = express.Router();
 const { usersController } = require("../controllers");
 const { checkToken } = require("../common/middlewares");
 
-router.get("/token", checkToken, usersController.accounts.token);
-router.post("/singin", usersController.accounts.singin);
+router.get("/token", checkToken, usersController.token);
+router.post("/singin", usersController.singin);
 
 module.exports = router;
