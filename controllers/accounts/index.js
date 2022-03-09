@@ -47,4 +47,26 @@ module.exports = {
       res.sendStatus(500);
     }
   },
+
+  rank: async (req, res) => {
+    try {
+      const userData = await users.findAll({
+        raw: true,
+        order: [["current", "DESC"]],
+        attributes: ["id", "name", "current", "target"],
+      });
+
+      const result = userData.map((user) => {
+        console.log("user ", user);
+        return Object.assign(user, {
+          percent: Math.round((user.current / user.target) * 100),
+        });
+      });
+
+      return res.status(200).json(result);
+    } catch (e) {
+      console.log("err : ", e);
+      res.sendStatus(500);
+    }
+  },
 };
