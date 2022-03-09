@@ -5,8 +5,8 @@ const cryptoKey = process.env.CRYPTO_KEY;
 const crypto = require("crypto");
 
 module.exports = {
-  sign: async (password) => {
-    return await jwt.sign({ password }, secretKey, jwtOptions);
+  sign: async (id) => {
+    return await jwt.sign({ id }, secretKey, jwtOptions);
   },
 
   verify: (token) => {
@@ -16,7 +16,7 @@ module.exports = {
         console.log("err : ", err);
         result = false;
       } else {
-        result = decoded.phone;
+        result = decoded.id;
       }
     });
     return result;
