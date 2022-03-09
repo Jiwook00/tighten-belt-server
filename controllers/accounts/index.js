@@ -11,7 +11,12 @@ module.exports = {
       await accounts.create({ user_id: id, expense });
       await users.update({ current: newCurrent }, { where: { id } });
 
-      return res.status(201).json({ percent, current: newCurrent });
+      return res.status(201).json({
+        percent,
+        current: newCurrent
+          .toString()
+          .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","),
+      });
     } catch (e) {
       console.log("err : ", e);
       res.sendStatus(500);
@@ -64,6 +69,23 @@ module.exports = {
       });
 
       return res.status(200).json(result);
+    } catch (e) {
+      console.log("err : ", e);
+      res.sendStatus(500);
+    }
+  },
+
+  mine: async (req, res) => {
+    try {
+      const { id, name, current, target } = req.user;
+      const percent = Math.round((current / target) * 100);
+      return res.status(200).json({
+        name,
+        current: current
+          .toString()
+          .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","),
+        percent,
+      });
     } catch (e) {
       console.log("err : ", e);
       res.sendStatus(500);
