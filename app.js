@@ -4,6 +4,7 @@ dotenv.config();
 const morgan = require("morgan");
 const cors = require("cors");
 const { sequelize } = require("./models");
+const router = require("./routes");
 
 const app = express();
 const port = process.env.PORT;
@@ -20,6 +21,8 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("hello");
 });
+
+app.use("/users", router.users);
 
 app.use((req, res) => {
   res.status(404).send("Path Not Found");
