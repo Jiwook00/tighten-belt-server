@@ -1,4 +1,5 @@
 const { users } = require("../../models");
+const { sign } = require("../../common/token");
 
 module.exports = {
   singin: async (req, res) => {
@@ -11,8 +12,10 @@ module.exports = {
       });
 
       if (user) {
-        console.log("여기서 토큰 발급");
-        return res.send("ok");
+        const token = await sign(user.password);
+        return res
+          .status(200)
+          .json({ id: user.id, nickname: user.nickname, token });
       }
       return res.sendStatus(401);
     } catch (e) {
