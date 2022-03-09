@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       current: {
         type: DataTypes.INTEGER,
-        defaultValue: 0,
+        defaultValue: 300000,
         allowNull: false,
       },
       password: {

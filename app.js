@@ -23,6 +23,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/users", router.users);
+app.use("/accounts", router.accounts);
 
 app.use((req, res) => {
   res.status(404).send("Path Not Found");
