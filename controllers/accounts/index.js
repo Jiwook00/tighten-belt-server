@@ -17,4 +17,19 @@ module.exports = {
       res.sendStatus(500);
     }
   },
+
+  findAll: async (req, res) => {
+    try {
+      const { id } = req.user;
+      const data = await accounts.findAll({
+        raw: true,
+        where: { user_id: id },
+      });
+
+      return res.status(200).json(data);
+    } catch (e) {
+      console.log("err : ", e);
+      res.sendStatus(500);
+    }
+  },
 };
