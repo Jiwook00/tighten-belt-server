@@ -62,9 +62,12 @@ module.exports = {
       });
 
       const result = userData.map((user) => {
-        console.log("user ", user);
+        const percent = Math.round((user.current / user.target) * 100);
+        user.current = user.current
+          .toString()
+          .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
         return Object.assign(user, {
-          percent: Math.round((user.current / user.target) * 100),
+          percent: percent,
         });
       });
 
